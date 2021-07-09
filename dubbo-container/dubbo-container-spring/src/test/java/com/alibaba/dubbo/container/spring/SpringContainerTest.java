@@ -30,7 +30,10 @@ public class SpringContainerTest {
 
     @Test
     public void testContainer() {
-        SpringContainer container = (SpringContainer) ExtensionLoader.getExtensionLoader(Container.class).getExtension("spring");
+        ExtensionLoader<Container> extensionLoader = ExtensionLoader.getExtensionLoader(Container.class);
+
+        //通过 extensionLoader 拿到相应 SPI 注解类
+        SpringContainer container = (SpringContainer)extensionLoader .getExtension("spring");
         container.start();
         Assert.assertEquals(SpringContainer.class, container.context.getBean("container").getClass());
         container.stop();
